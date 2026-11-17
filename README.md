@@ -120,11 +120,11 @@ Descompone un número en millares, centenas, decenas y unidades y los convierte 
 #### Millares_Y_Romanos2
 Versión reorganizada de la previa con una función de conversión y un rango esperado de 1 a 3999.
 
-### Numeros aleatorios
-Intenta generar números aleatorios y repetir la operación; el control para repetir está incompleto.
-
 ### Movimiento
 Prueba de movimiento, con movimiento de 8 direcciones mediante las flechas, y con ventana modificable
+
+### Numeros aleatorios
+Intenta generar números aleatorios y repetir la operación; el control para repetir está incompleto.
 
 ### Numeros amigos
 Calcula sumas de divisores para buscar pares de números amigos hasta un límite.
