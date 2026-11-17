@@ -123,6 +123,9 @@ Versión reorganizada de la previa con una función de conversión y un rango es
 ### Numeros aleatorios
 Intenta generar números aleatorios y repetir la operación; el control para repetir está incompleto.
 
+### Movimiento
+Prueba de movimiento, con movimiento de 8 direcciones mediante las flechas, y con ventana modificable
+
 ### Numeros amigos
 Calcula sumas de divisores para buscar pares de números amigos hasta un límite.
 
