@@ -1,7 +1,7 @@
 #Creado por Miguel Angel Encinas Bustillos
 
 import pygame,random;import numpy as np; from os import system;system('cls');from time import sleep
-
+import sys
 def ganador(ficha):
     #Del bot, generado con ia porque no supe como sin romper el programa
     for i in range(3):
@@ -48,6 +48,7 @@ def elegir_jugada():
     ]
     return random.choice(libres) if libres else None
 
+# Como dice el nombre, checa si el jugador/es cumple con ciertas condiciones para ganar/perder
 def chequeo_gameover():
     global tablero, WIN, GAMEOVER,EMPATE
     for fila in range(3):
@@ -60,6 +61,7 @@ def chequeo_gameover():
             if np.all(tablero[:,columna]=="O"):GAMEOVER=True
             if not WIN and not GAMEOVER and not np.any(tablero == "_"):
                 EMPATE = True
+# Intercambia el X por una O en la terminal, para que cuando se este dibujando la pantalla, dibuje correctamente
 def cambio(x,y):
     global turno_jugador,turno_jugador2,jugador
     tablero[x,y]=jugador
@@ -71,6 +73,8 @@ def cambio(x,y):
         turno_jugador=True
         turno_jugador2=False
         jugador="X"
+
+# Cuando se gana o pierde, se usa esta funcion para dejar las partes que se usan al jugar del programa de vuelta a su estado de origen
 def otravez():
     global tablero,WIN,GAMEOVER,turno_jugador,turno_jugador2,jugador,EMPATE,ESPERANDO
     tablero = np.full((3,3),"_",dtype="U1")
@@ -85,6 +89,8 @@ def otravez():
     turno_jugador=True
     turno_jugador2=False
     WIN,GAMEOVER,EMPATE,ESPERANDO = False, False, False, False
+
+# Esta funcion solo muestra quien gano tanto para Partida contra bots, como contra partidas contra otro jugador
 def postgame():
     global ESPERANDO,inicio
     if not ESPERANDO:
@@ -117,7 +123,8 @@ def postgame():
             clock.tick(1)
     else:
         ESPERANDO=False
-            
+
+# Establecemos los valores iniciales / Constantes
 ANCHO, ALTO = 600, 600
 COLOR_A, COLOR_B, COLOR_C =  (10, 10, 10), (225, 225, 225), (155,25,155)
 GAMEOVER=False
@@ -145,6 +152,7 @@ empate=0
 col=COLOR_B
 clock= pygame.time.Clock()
 
+#Iniciamos el Pygame/Programa
 pygame.init()
 pygame.display.set_mode((ANCHO, ALTO))
 pygame.display.set_caption("Juego del Gato | Elegir Modo")
@@ -154,6 +162,7 @@ fuente = pygame.font.SysFont("yumincho", 30)
 boton_bot = pygame.Rect(150, 250, 300, 70)
 boton_jugadores = pygame.Rect(100, 350, 400, 70)
 
+#Menu de seleccion de modo
 menu = True
 while menu:
     for event in pygame.event.get():
@@ -191,6 +200,7 @@ while menu:
     pygame.display.flip()
     clock.tick(60)
 
+#Crea las casillas cuales el jugador interactua en cierto modo al jugar
 if BOT is not None:
     print("Juego del Gato\nSe te abrio una ventana aparte de la terminal")
     print("No la borres, es el juego, y la terminal tampoco, o sino se cierra el juego")
@@ -206,6 +216,7 @@ if BOT is not None:
     casilla8 = pygame.Rect(200, 400, 200, 200)
     casilla9 = pygame.Rect(400, 400, 200, 200)
     tiempo_partida=pygame.time.get_ticks()
+#Ahora empieza la parte del juego en caso que no haya cerrado el programa
 while running:
     STotal=(pygame.time.get_ticks()-tiempo_partida)//1000
     if STotal<60: tiempo=f"{STotal}s"
@@ -218,6 +229,7 @@ while running:
             pygame.draw.rect(pantalla,col,(200*columna2,200*fila2,200,200))
             col=COLOR_B
 
+    #Dibuja las figuras para ver donde ya esta ocupado/libre
     for fila in range(3):
         for columna in range(3):
             if tablero[fila,columna]=="X":
@@ -237,6 +249,7 @@ while running:
             if jugada is not None:
                 cambio(*jugada) #Nota: el * es para cada elemento de jugada
                 chequeo_gameover()
+    #Lo siento por esta parte, pero es para hacer que en la matriz de antes, en donde diste click con tu mouse, cambie a tu figura
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
                 running=False
@@ -258,6 +271,7 @@ while running:
             cambio(2,1)
         if casilla9.collidepoint(pos) and event.type == pygame.MOUSEBUTTONDOWN and tablero[2,2]=="_":
             cambio(2,2)
+    #Pone en el titulo de la ventana dependiendo del modo, las estadisticas de la partida, aparte del tiempo transcurrido
     if WIN==False and GAMEOVER==False and BOT==True:
         pygame.display.set_caption(f"Gato | Modo: Bot | Tiempo: {tiempo} | Victorias: {victorias} | Derrotas: {derrotas} | Empates: {empate}")
     if WIN==False and GAMEOVER==False and BOT==False:
@@ -277,5 +291,5 @@ while running:
     pygame.display.flip()
     clock.tick(60)
 
-
 pygame.quit()
+sys.exit()
