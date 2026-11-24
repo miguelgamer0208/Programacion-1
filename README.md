@@ -130,7 +130,7 @@ Lo quieres que este Vacio?
 ```bash
 python3 Programas/Juego del Gato (Terminado)/JuegoDelGato.pyw
 ```
-![Ejecución del programa](capturas/JuegoGato1.png)
-![](capturas/JuegoGato2.png)
-![](capturas/JuegoGato3.png)
-![](capturas/JuegoGato4.png)
+![Ejecución del programa](Capturas/JuegoGato1.png)
+![](Capturas/JuegoGato2.png)
+![](Capturas/JuegoGato3.png)
+![](Capturas/JuegoGato4.png)
